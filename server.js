@@ -14,18 +14,19 @@ const typeDefs = gql`
   }
   type Query {
     movies: [Movie]
-    movie: Movie
+    movie(id: Int!): Movie
   }
   type Mutation {
     createMovie(title: String!, year: Int!, genre: String): Movie
-    deleteMovie(title: String!): Boolean
+    deleteMovie(id: Int!): Movie
+    updateMovie(id: Int!, year: Int!): Movie
   }
 `;
 
 const resolvers = {
   Query: {
     movies: () => client.movie.findMany(), // 우리의 데이터베이스로 가서 모든 영활르 검색하게 돼
-    movie: () => ({ title: "Hello", year: 2023 }),
+    movie: (_, { id }) => client.movie.findUnique({ where: { id } }),
   },
   Mutation: {
     createMovie: (_, { title, year, genre }) =>
@@ -36,10 +37,9 @@ const resolvers = {
           genre,
         },
       }),
-    deleteMovie: (_, { title }) => {
-      console.log(title);
-      return true;
-    },
+    deleteMovie: (_, { id }) => client.movie.delete({ where: { id } }),
+    updateMovie: (_, { id, year }) =>
+      client.movie.update({ where: { id: id }, data: { year } }),
   },
 };
 
