@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": ""
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DongUk1995/nomadcoffee-backend.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.12.1",
+    "graphql": "^16.8.1"
+  }
 }
