@@ -10,12 +10,16 @@ export default gql`
     avatarURL: String
     githubUsername: String
   }
-  type CreateError {
+  type CreateAccountResult {
     ok: Boolean!
     error: String
   }
   type Mutation {
-    crateAccount(username: String!, email: String!, password: String!): User
+    crateAccount(
+      username: String!
+      email: String!
+      password: String!
+    ): CreateAccountResult
   }
   type Query {
     seeProfile(username: String): User

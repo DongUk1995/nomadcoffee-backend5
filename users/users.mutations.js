@@ -20,20 +20,25 @@ export default {
           },
         });
         if (existingUser) {
-          throw new Error("ok:false, error:error"); // throw를 하면 밑에 return은 실행 되지 않는다. 폭탄같은 거다 폭탄 터짐 좆댐
+          throw new Error("This username/password is already token."); // throw를 하면 밑에 return은 실행 되지 않는다. 폭탄같은 거다 폭탄 터짐 좆댐
         }
         // 해시 패스워드
         const uglyPassword = await bcrypt.hash(password, 10);
-        return client.user.create({
+        await client.user.create({
           data: {
             username,
             email,
             password: uglyPassword,
           },
         });
-        ok: ture;
+        return {
+          ok: true,
+        };
       } catch (e) {
-        return e;
+        return {
+          ok: false,
+          error: "error",
+        };
       }
     },
   },
