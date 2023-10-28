@@ -13,7 +13,6 @@ export default gql`
       password: String
       avatarURL: String
       githubUsername: String
-      token: String!
     ): EditProfileResult
   }
 `;
