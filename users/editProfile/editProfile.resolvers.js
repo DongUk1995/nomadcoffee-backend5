@@ -1,15 +1,35 @@
 import { bcrypt } from "bcrypt";
 import client from "../../client";
 import { protectResolver } from "../../users.utils";
+import createWriteStream from "fs";
 
 export default {
   Mutation: {
     editProfile: protectResolver(
       async (
         _,
-        { username, email, password: newPassword, avatarURL, githubUsername },
-        { loggedInUser, protectResolver }
+        {
+          username,
+          email,
+          name,
+          location,
+          password: newPassword,
+          avatarURL: avatar,
+          githubUsername,
+        },
+        { loggedInUser }
       ) => {
+        let avatarUrl = null;
+        if (avatar) {
+          const { filename, createReadStream } = await avatar;
+          const newFilename = `${loggedInUser.id} -${Date.now} - ${filename}`;
+          const readStream = createReadStream();
+          const wirteStream = createWriteStream(
+            process.cwd() + "/uploads" + newFilename
+          );
+          readStream.pipe(wirteStream);
+          avatarUrl = `http://localhost:4000/static/${newFilename}`;
+        }
         let uglyPassword = null;
         if (newPassword) {
           uglyPassword = await bcrypt.hash(newPassword, 10);
@@ -21,9 +41,11 @@ export default {
           data: {
             username,
             email,
-            avatarURL,
-            githubUsername,
+            name,
+            location,
+            ...(avatarUrl && { avatarURL }),
             ...(uglyPassword && { password: uglyPassword }),
+            githubUsername,
           },
         });
         if (updateUser.id) {
