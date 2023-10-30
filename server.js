@@ -6,7 +6,6 @@ import { getUser } from "./users.utils";
 import logger from "morgan";
 
 const app = express();
-app.use(logger("tiny"));
 const PORT = process.env.PORT || 4000;
 app.use("/static", express.static("uploads"));
 const server = new ApolloServer({
