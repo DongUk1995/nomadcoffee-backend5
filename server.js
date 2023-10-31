@@ -3,7 +3,6 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users.utils";
-import logger from "morgan";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
