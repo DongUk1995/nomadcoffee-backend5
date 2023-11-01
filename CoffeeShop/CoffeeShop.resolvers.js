@@ -19,12 +19,6 @@ export default {
           },
         },
       }),
-    name: ({ name }) =>
-      client.coffeeShop.findMany({
-        where: {
-          name,
-        },
-      }),
   },
 };
 /* client.category.findMany({
