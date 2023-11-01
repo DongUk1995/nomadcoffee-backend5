@@ -4,11 +4,12 @@ export default gql`
     id: String!
     username: String!
     email: String!
-    name: String
+    name: String!
     location: String
     avatarURL: String
     following: [User]
     followers: [User]
+    coffeeshops: [CoffeeShop]
     totalFollowing: Int!
     totalFollowers: Int!
     githubUsername: String

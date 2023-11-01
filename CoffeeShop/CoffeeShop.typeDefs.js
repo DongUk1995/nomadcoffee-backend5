@@ -9,9 +9,10 @@ export default gql`
   type CoffeeShop {
     id: Int!
     user: User!
-    name: String
+    name: String!
     latitude: String
     longitude: String
+    categoryGrup: String
     photos: [CoffeShopPhoto]
     categories: [Category]
     createdAt: String!
