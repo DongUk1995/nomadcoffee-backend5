@@ -6,7 +6,7 @@ import { getUser } from "./users.utils";
 import client from "./client";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 app.use("/static", express.static("uploads"));
 const server = new ApolloServer({
   typeDefs,
